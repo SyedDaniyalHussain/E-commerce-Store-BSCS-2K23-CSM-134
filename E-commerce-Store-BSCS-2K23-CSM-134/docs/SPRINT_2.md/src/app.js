@@ -1,0 +1,15 @@
+const express=require('express');
+const auth=require('./routes/auth');
+const categories=require('./routes/adminCategories');
+const products=require('./routes/adminProducts');
+const skus=require('./routes/adminSkus');
+const {notFound,errorHandler}=require('./middleware/errors');
+const app=express();
+app.use(express.json({limit:'1mb'}));
+app.get('/health',(req,res)=>res.json({status:'ok',service:'mobile-store-sprint2'}));
+app.use('/api/v1/auth',auth);
+app.use('/api/v1/admin/categories',categories);
+app.use('/api/v1/admin/products',products);
+app.use('/api/v1/admin/skus',skus);
+app.use(notFound); app.use(errorHandler);
+module.exports=app;
